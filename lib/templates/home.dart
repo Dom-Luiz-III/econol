@@ -5,6 +5,7 @@ class EconomolPage extends StatefulWidget {
   const EconomolPage({required Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _EconomolPageState createState() => _EconomolPageState();
 }
 
@@ -20,6 +21,7 @@ class _EconomolPageState extends State<EconomolPage> {
     num gasolina = parseNumber(gasolinaText);
     num etanol = parseNumber(etanolText);
 
+    // ignore: unnecessary_null_comparison
     if (etanol != null) {
       double proporcao = etanol / gasolina;
       if (proporcao <= 0.7) {
