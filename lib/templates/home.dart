@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:econol/core/calculo.dart';
+import 'package:econol/core/button_animation.dart';
 
 class EconomolPage extends StatefulWidget {
   const EconomolPage({required Key? key}) : super(key: key);
@@ -74,7 +75,16 @@ class _EconomolPageState extends State<EconomolPage> {
               onChanged: (_) => _formatarNumero(_etanolController),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
+            PushableButton(
+              height: 60,
+              elevation: 8,
+              hslColor: const HSLColor.fromAHSL(1.0, 120, 1.0, 0.37),
+              shadow: const BoxShadow(
+                color: Colors.blueGrey,
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 2),
+              ),
               onPressed: _calcularMelhorOpcao,
               child: const Text('Calcular'),
             ),
@@ -89,3 +99,6 @@ class _EconomolPageState extends State<EconomolPage> {
     );
   }
 }
+
+//test zone
+
