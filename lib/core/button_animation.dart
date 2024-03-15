@@ -29,7 +29,7 @@ class PushableButton extends StatefulWidget {
     required this.height,
     this.elevation = 8.0,
     this.shadow,
-    this.onPressed,
+    this.onPressed, required int width,
   })  : assert(height > 0),
         super(key: key);
 

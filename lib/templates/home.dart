@@ -3,10 +3,9 @@ import 'package:econol/core/calculo.dart';
 import 'package:econol/core/button_animation.dart';
 
 class EconomolPage extends StatefulWidget {
-  const EconomolPage({required Key? key}) : super(key: key);
+  const EconomolPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _EconomolPageState createState() => _EconomolPageState();
 }
 
@@ -19,10 +18,14 @@ class _EconomolPageState extends State<EconomolPage> {
     String gasolinaText = _gasolinaController.text.replaceAll(',', '.');
     String etanolText = _etanolController.text.replaceAll(',', '.');
 
+    if (gasolinaText.isEmpty || etanolText.isEmpty) {
+      _mostrarSnackBar('Informe os valores da gasolina e do etanol');
+      return;
+    }
+
     num gasolina = parseNumber(gasolinaText);
     num etanol = parseNumber(etanolText);
 
-    // ignore: unnecessary_null_comparison
     if (etanol != null) {
       double proporcao = etanol / gasolina;
       if (proporcao <= 0.7) {
@@ -51,6 +54,15 @@ class _EconomolPageState extends State<EconomolPage> {
     }
   }
 
+  void _mostrarSnackBar(String mensagem) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(mensagem),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,19 +86,25 @@ class _EconomolPageState extends State<EconomolPage> {
               decoration: const InputDecoration(labelText: 'Preço do etanol'),
               onChanged: (_) => _formatarNumero(_etanolController),
             ),
-            const SizedBox(height: 16.0),
-            PushableButton(
-              height: 60,
-              elevation: 8,
-              hslColor: const HSLColor.fromAHSL(1.0, 120, 1.0, 0.37),
-              shadow: const BoxShadow(
-                color: Colors.blueGrey,
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 2),
+            const SizedBox(height: 40.0),
+            Center(
+              child: SizedBox(
+                width: 200,
+                child: PushableButton(
+                  height: 60,
+                  elevation: 8,
+                  hslColor: const HSLColor.fromAHSL(1.0, 120, 1.0, 0.37),
+                  shadow: const BoxShadow(
+                    color: Colors.grey,
+                    spreadRadius: 2,
+                    blurRadius: 7,
+                    offset: Offset(0, 2),
+                  ),
+                  onPressed: _calcularMelhorOpcao,
+                  width: 40,
+                  child: const Text('Calcular', style: TextStyle(fontSize: 30)),
+                ),
               ),
-              onPressed: _calcularMelhorOpcao,
-              child: const Text('Calcular'),
             ),
             const SizedBox(height: 16.0),
             Text(
@@ -99,6 +117,3 @@ class _EconomolPageState extends State<EconomolPage> {
     );
   }
 }
-
-//test zone
-
