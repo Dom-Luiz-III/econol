@@ -146,7 +146,7 @@ class _EconomolPageState extends State<EconomolPage> {
             AnimatedContainer(
               duration: const Duration(milliseconds: 500),
               curve: Curves.easeInOut,
-              height: _showResult ? 50 : 0, // Altura da animação
+              height: _showResult ? 50 : 0,
               child: Center(
                 child: Text(
                   _resultado,
