@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:econol/core/calculo.dart';
 import 'package:econol/core/button_animation.dart';
 
-
 class EconomolPage extends StatefulWidget {
   const EconomolPage({Key? key}) : super(key: key);
 
@@ -88,82 +87,106 @@ class _EconomolPageState extends State<EconomolPage> {
       appBar: AppBar(
         title: const Text('ECONOL'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 50.0),
-            TextField(
-              controller: _gasolinaController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Preço da Gasolina',
-                prefixIcon: Icon(Icons.local_gas_station),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 25.0),
+              TextField(
+                controller: _gasolinaController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Preço da Gasolina',
+                  prefixIcon: Icon(Icons.local_gas_station),
+                ),
+                onChanged: (_) => _formatarNumero(_gasolinaController),
               ),
-              onChanged: (_) => _formatarNumero(_gasolinaController),
-            ),
-            const SizedBox(height: 40.0),
-            TextField(
-              controller: _etanolController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Preço do Etanol',
-                prefixIcon: Icon(Icons.local_drink),
+              const SizedBox(height: 20.0),
+              TextField(
+                controller: _etanolController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Preço do Etanol',
+                  prefixIcon: Icon(Icons.local_drink),
+                ),
+                onChanged: (_) => _formatarNumero(_etanolController),
               ),
-              onChanged: (_) => _formatarNumero(_etanolController),
-            ),
-            const SizedBox(height: 60.0),
-            Center(
-              child: SizedBox(
-                width: 200,
-                child: PushableButton(
-                  height: 60,
-                  elevation: 8,
-                  hslColor: const HSLColor.fromAHSL(1.0, 0, 0, 0.5),
-                  shadow: const BoxShadow(
-                    color: Colors.grey,
-                    spreadRadius: 2,
-                    blurRadius: 7,
-                    offset: Offset(0, 2),
-                  ),
-                  onPressed: () {
-                    _calcularMelhorOpcao();
-                    if (!_showResult) _scrollToResult();
-                  },
-                  width: 20,
-                  child: const Text(
-                    'Calcular',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+              const SizedBox(height: 20.0),
+              Center(
+                child: SizedBox(
+                  width: 200,
+                  child: PushableButton(
+                    height: 60,
+                    elevation: 8,
+                    hslColor: const HSLColor.fromAHSL(1.0, 0, 0, 0.5),
+                    shadow: const BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: Offset(0, 2),
+                    ),
+                    onPressed: () {
+                      _calcularMelhorOpcao();
+                      if (!_showResult);
+                    },
+                    width: 20,
+                    child: const Text(
+                      'Calcular',
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
-              height: _showResult ? 50 : 0,
-              child: Center(
-                child: Text(
-                  _resultado,
-                  style: const TextStyle(fontSize: 18.0),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                height: _showResult ? 300 : 0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20.0),
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 500),
+                      opacity: _showResult ? 1.0 : 0.0,
+                      child: Column(
+                        children: [
+                          
+                          const SizedBox(height: 20.0),
+                          if (_showResult && _resultado.contains('gasolina'))
+                            Image.asset(
+                              'assets/images/gasolina.png',
+                              width: 200,
+                              height: 200,
+                            ),
+                          if (_showResult && _resultado.contains('etanol'))
+                            Image.asset(
+                              'assets/images/cana.png',
+                              width: 200,
+                              height: 200,
+                            ),
+                            Text(
+                            _resultado,
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
-  }
-
-  void _scrollToResult() {
-    Future.delayed(const Duration(milliseconds: 500), () {
-      Scrollable.ensureVisible(context,
-          alignment: 0.5, duration: const Duration(milliseconds: 500));
-    });
   }
 }
