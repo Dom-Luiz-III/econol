@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:econol/core/calculo.dart';
-import 'package:econol/core/button_animation.dart';
+import 'package:econol/templates/sobre.dart';
 
 class EconomolPage extends StatefulWidget {
   const EconomolPage({Key? key}) : super(key: key);
@@ -86,6 +86,17 @@ class _EconomolPageState extends State<EconomolPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ECONOL'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SobrePage()),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -113,33 +124,24 @@ class _EconomolPageState extends State<EconomolPage> {
                 ),
                 onChanged: (_) => _formatarNumero(_etanolController),
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 30.0),
               Center(
                 child: SizedBox(
-                  width: 200,
-                  child: PushableButton(
-                    height: 60,
-                    elevation: 8,
-                    hslColor: const HSLColor.fromAHSL(1.0, 0, 0, 0.5),
-                    shadow: const BoxShadow(
-                      color: Colors.grey,
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: Offset(0, 2),
-                    ),
+                  width: 250,
+                  child: FloatingActionButton.extended(
                     onPressed: () {
                       _calcularMelhorOpcao();
-                      if (!_showResult);
+                      if (!_showResult) {}
                     },
-                    width: 20,
-                    child: const Text(
+                    elevation: 0,
+                    label: const Text(
                       'Calcular',
                       style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    icon: const Icon(Icons.calculate),
                   ),
                 ),
               ),
@@ -156,8 +158,14 @@ class _EconomolPageState extends State<EconomolPage> {
                       opacity: _showResult ? 1.0 : 0.0,
                       child: Column(
                         children: [
-                          
                           const SizedBox(height: 20.0),
+                          Text(
+                            _resultado,
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                           if (_showResult && _resultado.contains('gasolina'))
                             Image.asset(
                               'assets/images/gasolina.png',
@@ -170,13 +178,6 @@ class _EconomolPageState extends State<EconomolPage> {
                               width: 200,
                               height: 200,
                             ),
-                            Text(
-                            _resultado,
-                            style: const TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         ],
                       ),
                     ),
