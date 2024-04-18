@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:econol/core/calculo.dart';
+import 'package:econol/core/db_helper.dart'; 
+import 'package:econol/templates/grafico.dart';
 import 'package:econol/templates/sobre.dart';
 
 class EconomolPage extends StatefulWidget {
@@ -29,7 +31,7 @@ class _EconomolPageState extends State<EconomolPage> {
     });
   }
 
-  void _calcularMelhorOpcao() {
+  void _calcularMelhorOpcao() async {
     String gasolinaText = _gasolinaController.text.replaceAll(',', '.');
     String etanolText = _etanolController.text.replaceAll(',', '.');
 
@@ -50,12 +52,23 @@ class _EconomolPageState extends State<EconomolPage> {
             : 'Abasteça com gasolina.';
         _showResult = true;
       });
+
+      Price price = Price(gasolina: gasolina.toDouble(), etanol: etanol.toDouble());
+      await DatabaseHelper.instance.insertPrice(price);
+
     } else {
       setState(() {
         _resultado = 'Digite valores válidos.';
         _showResult = true;
       });
     }
+  }
+
+  void _navigateToHistoricoPrecosPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HistoricoPrecosPage()),
+    );
   }
 
   void _formatarNumero(TextEditingController controller) {
@@ -95,6 +108,10 @@ class _EconomolPageState extends State<EconomolPage> {
                 MaterialPageRoute(builder: (context) => const SobrePage()),
               );
             },
+          ),
+          IconButton(
+            icon: const Icon(Icons.history),
+            onPressed: _navigateToHistoricoPrecosPage, // Chamar a função diretamente
           ),
         ],
       ),
