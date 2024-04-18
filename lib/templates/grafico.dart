@@ -13,22 +13,26 @@ class HistoricoPrecosPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Histórico de Preços'),
       ),
-      body: FutureBuilder<List<Price>>(
-        future: _fetchPrices(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Erro ao carregar os dados'));
-          } else {
-            return Column(
-              children: [
-                _buildChart(snapshot.data!, 'Gasolina'),
-                _buildChart(snapshot.data!, 'Etanol'),
-              ],
-            );
-          }
-        },
+      body: SingleChildScrollView(
+        child: FutureBuilder<List<Price>>(
+          future: _fetchPrices(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Erro ao carregar os dados'));
+            } else {
+              return Column(
+                children: [
+                  const SizedBox(height: 30.0),
+                  _buildChart(snapshot.data!, 'Gasolina'),
+                  const SizedBox(height: 50.0),
+                  _buildChart(snapshot.data!, 'Etanol'),
+                ],
+              );
+            }
+          },
+        ),
       ),
     );
   }
@@ -72,7 +76,7 @@ class HistoricoPrecosPage extends StatelessWidget {
 
     // Criando o gráfico de linhas
     return SizedBox(
-      height: 300,
+      height: 220,
       child: charts.LineChart(
         series,
         animate: true,

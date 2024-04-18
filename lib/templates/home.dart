@@ -32,6 +32,7 @@ class _EconomolPageState extends State<EconomolPage> {
   }
 
   void _calcularMelhorOpcao() async {
+
     String gasolinaText = _gasolinaController.text.replaceAll(',', '.');
     String etanolText = _etanolController.text.replaceAll(',', '.');
 
@@ -39,6 +40,8 @@ class _EconomolPageState extends State<EconomolPage> {
       _mostrarSnackBar('Informe os valores da gasolina e do etanol');
       return;
     }
+
+    FocusScope.of(context).unfocus();
 
     num gasolina = parseNumber(gasolinaText);
     num etanol = parseNumber(etanolText);
@@ -212,7 +215,7 @@ class _EconomolPageState extends State<EconomolPage> {
                   Icon(Icons.history),
                   SizedBox(width: 8), // Espaço entre o ícone e o texto
                   Text(
-                    'Histórico',
+                    'Histórico de Preços',
                     style: TextStyle(fontSize: 16),
                   ),
                 ],
