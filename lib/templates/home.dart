@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:econol/core/calculo.dart';
-import 'package:econol/core/db_helper.dart'; 
+import 'package:econol/core/db_helper.dart';
 import 'package:econol/templates/grafico.dart';
 import 'package:econol/templates/sobre.dart';
 
@@ -53,9 +53,9 @@ class _EconomolPageState extends State<EconomolPage> {
         _showResult = true;
       });
 
-      Price price = Price(gasolina: gasolina.toDouble(), etanol: etanol.toDouble());
+      Price price =
+          Price(gasolina: gasolina.toDouble(), etanol: etanol.toDouble());
       await DatabaseHelper.instance.insertPrice(price);
-
     } else {
       setState(() {
         _resultado = 'Digite valores válidos.';
@@ -108,10 +108,6 @@ class _EconomolPageState extends State<EconomolPage> {
                 MaterialPageRoute(builder: (context) => const SobrePage()),
               );
             },
-          ),
-          IconButton(
-            icon: const Icon(Icons.history),
-            onPressed: _navigateToHistoricoPrecosPage, // Chamar a função diretamente
           ),
         ],
       ),
@@ -205,6 +201,29 @@ class _EconomolPageState extends State<EconomolPage> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: _navigateToHistoricoPrecosPage,
+              child: const Row(
+                children: [
+                  Icon(Icons.history),
+                  SizedBox(width: 8), // Espaço entre o ícone e o texto
+                  Text(
+                    'Histórico',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation
+          .centerDocked, // or another suitable location
+      floatingActionButton: null, // Remove this FloatingActionButton
     );
   }
 }
