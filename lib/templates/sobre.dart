@@ -156,9 +156,9 @@ class _TopPortion extends StatelessWidget {
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [
-                    Color.fromARGB(255, 99, 206, 255),
-                    Color.fromARGB(255, 63, 147, 185),
-                    Color.fromARGB(255, 27, 48, 58)
+                    Color.fromARGB(210, 134, 249, 255),
+                    Color.fromARGB(210, 116, 214, 219),
+                    Color.fromARGB(255, 116, 151, 168)
                   ]),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),

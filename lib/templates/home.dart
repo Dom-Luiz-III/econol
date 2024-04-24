@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:econol/core/calculo.dart';
+import 'package:econol/core/db_helper.dart';
+import 'package:econol/templates/grafico.dart';
 import 'package:econol/templates/sobre.dart';
 
 class EconomolPage extends StatefulWidget {
@@ -29,7 +31,8 @@ class _EconomolPageState extends State<EconomolPage> {
     });
   }
 
-  void _calcularMelhorOpcao() {
+  void _calcularMelhorOpcao() async {
+
     String gasolinaText = _gasolinaController.text.replaceAll(',', '.');
     String etanolText = _etanolController.text.replaceAll(',', '.');
 
@@ -37,6 +40,8 @@ class _EconomolPageState extends State<EconomolPage> {
       _mostrarSnackBar('Informe os valores da gasolina e do etanol');
       return;
     }
+
+    FocusScope.of(context).unfocus();
 
     num gasolina = parseNumber(gasolinaText);
     num etanol = parseNumber(etanolText);
@@ -50,12 +55,23 @@ class _EconomolPageState extends State<EconomolPage> {
             : 'Abasteça com gasolina.';
         _showResult = true;
       });
+
+      Price price =
+          Price(gasolina: gasolina.toDouble(), etanol: etanol.toDouble());
+      await DatabaseHelper.instance.insertPrice(price);
     } else {
       setState(() {
         _resultado = 'Digite valores válidos.';
         _showResult = true;
       });
     }
+  }
+
+  void _navigateToHistoricoPrecosPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HistoricoPrecosPage()),
+    );
   }
 
   void _formatarNumero(TextEditingController controller) {
@@ -188,6 +204,29 @@ class _EconomolPageState extends State<EconomolPage> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: _navigateToHistoricoPrecosPage,
+              child: const Row(
+                children: [
+                  Icon(Icons.history),
+                  SizedBox(width: 8), // Espaço entre o ícone e o texto
+                  Text(
+                    'Histórico de Preços',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation
+          .centerDocked, // or another suitable location
+      floatingActionButton: null, // Remove this FloatingActionButton
     );
   }
 }
