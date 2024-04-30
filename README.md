@@ -1,3 +1,6 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![MediaFire](https://img.shields.io/badge/media--fire-Media--Fire-green?label=App)](https://www.mediafire.com/file/ng4xlw2f339t05u/econol.apk/file)
+
 # ECONOL
 
 ECONOL é um aplicativo desenvolvido em Flutter que auxilia os usuários a determinar se é mais vantajoso abastecer com gasolina ou etanol com base nos preços fornecidos. Além disso, o aplicativo permite visualizar o histórico de preços em forma de gráfico.
