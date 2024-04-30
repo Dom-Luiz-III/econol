@@ -16,7 +16,7 @@ ECONOL é um aplicativo desenvolvido em Flutter que auxilia os usuários a deter
 - SQLite: Banco de dados local utilizado para armazenar o histórico de preços.
 - Charts_flutter: Biblioteca para criação de gráficos dentro do aplicativo.
 
-## Como Utilizar
+## Como Utilizar (Sem ser pelo MediaFire)
 
 1. Clone o repositório para o seu ambiente local.
 2. Abra o projeto em um editor de código ou IDE compatível com Flutter.
