@@ -24,13 +24,10 @@ ECONOL é um aplicativo desenvolvido em Flutter que auxilia os usuários a deter
 
 ## Capturas de Tela
 
-<div align="center">
-  <img src="https://github.com/Dom-Luiz-III/econol/blob/main/assets/images/inicio.jpg" width="300">
-</div>
-
-<div align="center">
-  <img src="https://github.com/Dom-Luiz-III/econol/blob/main/assets/images/grafico.jpg" width="300">
-</div>
+<p align="center">
+  <img src="https://github.com/Dom-Luiz-III/econol/blob/main/assets/images/inicio.jpg" width="300" hspace="2">
+  <img src="https://github.com/Dom-Luiz-III/econol/blob/main/assets/images/grafico.jpg" width="300" hspace="2">
+</p>
 
 ## Contribuição
 
