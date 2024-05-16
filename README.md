@@ -1,4 +1,5 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![MediaFire](https://img.shields.io/badge/media--fire-Media--Fire-green?label=App)](https://www.mediafire.com/file/ng4xlw2f339t05u/econol.apk/file)
 
 # ECONOL
 
